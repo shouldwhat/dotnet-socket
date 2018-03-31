@@ -61,7 +61,7 @@
             this.bt_send.TabIndex = 2;
             this.bt_send.Text = "보내기";
             this.bt_send.UseVisualStyleBackColor = true;
-            this.bt_send.Click += new System.EventHandler(this.bt_send_Click);
+            //this.bt_send.Click += new System.EventHandler(this.bt_send_Click);
             // 
             // menuStrip1
             // 

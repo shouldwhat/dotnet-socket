@@ -15,37 +15,32 @@ namespace About_Sock
             InitializeComponent();
         }
 
-        Socket sock_lis = null;
-        Thread thread_accept = null;
+        Socket listenSocket = null;
+        Thread acceptThread = null;
 
         private void 서버개설ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            sock_lis = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            sock_lis.Bind(new IPEndPoint(MySock.GetMyIP(), 10200));
-            sock_lis.Listen(10);
+            listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            listenSocket.Bind(new IPEndPoint(MySock.GetMyIP(), 10200));
+            listenSocket.Listen(10);
 
-            thread_accept = new Thread(new ThreadStart(AcceptLoop));
-            thread_accept.Start();
+            acceptThread = new Thread(new ThreadStart(AcceptLoop));
+            acceptThread.Start();
         }
-        //
-        Socket sock_do = null;
+        
         private void AcceptLoop()
         {
-            while (true) {
-
-                if (thread_accept == null) {
-                    return;
-                }
-                try {
-
-                    sock_do = sock_lis.Accept();
-                    while (true) {
-
-                        if (sock_do.Connected == false) {
-                            break;
-                        }
-                        RecvProc(sock_do);
+            while (true)
+            {
+                try
+                {
+                    Socket workerSocket = listenSocket.Accept();
+                    if (workerSocket.Connected == false)
+                    {
+                        break;
                     }
+
+                    startInteraction(workerSocket);
                 }
                 catch (Exception) {
 
@@ -53,21 +48,32 @@ namespace About_Sock
             }
         }
 
-        delegate void AddItem(Byte[] msg);
-        private void RecvProc(Socket sock)
+        private void startInteraction(Socket workerSocket)
         {
-            Byte[] buffer = new Byte[100000];
-            try
+            Thread interactionThread = new Thread(new ParameterizedThreadStart(RecvProc));
+            interactionThread.Start(workerSocket);
+        }
+
+        delegate void AddItem(Byte[] msg);
+        private void RecvProc(object workerSocket)
+        {
+            while(true)
             {
-                sock.Receive(buffer);
-                if (lb_msgs.InvokeRequired)
+                try
                 {
-                    lb_msgs.Invoke(new AddItem(AddMsg), new object[] { buffer });
+                    Byte[] buffer = new Byte[1000];
+
+                    ((Socket) workerSocket).Receive(buffer);
+
+                    if (lb_msgs.InvokeRequired)
+                    {
+                        lb_msgs.Invoke(new AddItem(AddMsg), new object[] { buffer });
+                    }
                 }
-            }
-            catch (Exception)
-            {
-                return;
+                catch (Exception)
+                {
+                    return;
+                }
             }
         }
         private void AddMsg(Byte[] msg)
@@ -75,12 +81,13 @@ namespace About_Sock
             lb_msgs.Items.Add(Encoding.Default.GetString(msg));
         }
 
+        /*
         private void bt_send_Click(object sender, EventArgs e)
         {
             string msg = MySock.GetMyIP().ToString() + "::" + tb_msg.Text;
             try
             {
-                sock_do.Send(Encoding.Default.GetBytes(msg));
+                workerSocket.Send(Encoding.Default.GetBytes(msg));
                 lb_msgs.Items.Add(msg);
             }
             catch (Exception)
@@ -88,22 +95,19 @@ namespace About_Sock
                 
             }
         }
+        */
 
         private void ServerForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (thread_accept != null)
+            if (acceptThread != null)
             {
-                thread_accept = null;
+                acceptThread.Abort();
+                acceptThread = null;
             }
-            if (sock_do != null)
+            if (listenSocket != null)
             {
-                sock_do.Close();
-                sock_do = null;
-            }
-            if (sock_lis != null)
-            {
-                sock_lis.Close();
-                sock_lis = null;
+                listenSocket.Close();
+                listenSocket = null;
             }
         }
     }

@@ -19,16 +19,18 @@ namespace Client
             InitializeComponent();
         }
 
-        Socket sock_do = null;
-        Thread thread_recv = null;
+        Socket workerSocket = null;
+        Thread receiveThread = null;
         private bool ConnectServer()
         {
-            sock_do = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             try
             {
-                sock_do.Connect(new IPEndPoint(IPAddress.Parse("192.168.34.65"), 10200));
-                thread_recv = new Thread(new ParameterizedThreadStart(RecvLoop));
-                thread_recv.Start(sock_do);
+                workerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                workerSocket.Connect(new IPEndPoint(IPAddress.Parse("172.27.103.161"), 10200));
+
+                receiveThread = new Thread(new ParameterizedThreadStart(RecvLoop));
+                receiveThread.Start(workerSocket);
+
                 return true;
             }
             catch (Exception)
@@ -42,19 +44,19 @@ namespace Client
         {
             
         }
-        private void RecvLoop(Object obj)
+        private void RecvLoop(Object worker)
         {
-            Socket sock = obj as Socket;
+            Socket workerSocket = worker as Socket;
             while (true)
             {
-                if (thread_recv == null)
+                if (receiveThread == null)
                 {
                     return;
                 }
                 Byte[] buffer = new Byte[100000];
                 try
                 {
-                    sock.Receive(buffer);
+                    workerSocket.Receive(buffer);
                     RecvProc(buffer);
                 }
                 catch (Exception)
@@ -81,14 +83,15 @@ namespace Client
 
         private void ClientForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (thread_recv != null)
+            if (workerSocket != null)
             {
-                thread_recv = null;
+                workerSocket.Close();
+                workerSocket = null;
             }
-            if (sock_do != null)
+            if (receiveThread != null)
             {
-                sock_do.Close();
-                sock_do = null;
+                receiveThread.Abort();
+                receiveThread = null;
             }
         }
 
@@ -97,7 +100,7 @@ namespace Client
             string msg = MySock.GetMyIP().ToString() + "::" + tb_msg.Text;
             try
             {
-                sock_do.Send(Encoding.Default.GetBytes(msg));
+                workerSocket.Send(Encoding.Default.GetBytes(msg));
                 lb_msgs.Items.Add(msg);
             }
             catch (Exception)
