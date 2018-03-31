@@ -1,0 +1,7 @@
+c:\users\bit-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\bin\Debug\About_Sock.exe
+c:\users\bit-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\bin\Debug\About_Sock.pdb
+c:\users\bit-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\obj\x86\Debug\About_Sock.Form1.resources
+c:\users\bit-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\obj\x86\Debug\About_Sock.Properties.Resources.resources
+c:\users\bit-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\obj\x86\Debug\About_Sock.csproj.GenerateResource.Cache
+c:\users\bit-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\obj\x86\Debug\About_Sock.exe
+c:\users\bit-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\obj\x86\Debug\About_Sock.pdb

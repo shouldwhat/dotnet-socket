@@ -1,0 +1,5 @@
+C:\Users\BIT-084\documents\visual studio 2010\Projects\About_Sock\MyLib\bin\Debug\MyLib.dll
+C:\Users\BIT-084\documents\visual studio 2010\Projects\About_Sock\MyLib\bin\Debug\MyLib.pdb
+C:\Users\BIT-084\documents\visual studio 2010\Projects\About_Sock\MyLib\obj\Debug\MyLib.dll
+C:\Users\BIT-084\documents\visual studio 2010\Projects\About_Sock\MyLib\obj\Debug\MyLib.pdb
+C:\Users\BIT-084\documents\visual studio 2010\Projects\About_Sock\MyLib\obj\Debug\MyLib.csprojResolveAssemblyReference.cache

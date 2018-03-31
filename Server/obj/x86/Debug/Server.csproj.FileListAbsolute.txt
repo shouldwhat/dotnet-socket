@@ -1,0 +1,10 @@
+C:\Users\BIT-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\bin\Debug\About_Sock.exe
+C:\Users\BIT-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\bin\Debug\About_Sock.pdb
+C:\Users\BIT-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\bin\Debug\MyLib.dll
+C:\Users\BIT-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\bin\Debug\MyLib.pdb
+C:\Users\BIT-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\obj\x86\Debug\Server.csprojResolveAssemblyReference.cache
+C:\Users\BIT-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\obj\x86\Debug\About_Sock.ServerForm.resources
+C:\Users\BIT-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\obj\x86\Debug\About_Sock.Properties.Resources.resources
+C:\Users\BIT-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\obj\x86\Debug\Server.csproj.GenerateResource.Cache
+C:\Users\BIT-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\obj\x86\Debug\About_Sock.exe
+C:\Users\BIT-084\documents\visual studio 2010\Projects\About_Sock\About_Sock\obj\x86\Debug\About_Sock.pdb
