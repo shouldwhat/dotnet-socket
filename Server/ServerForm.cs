@@ -51,12 +51,12 @@ namespace About_Sock
 
         private void startInteractionThread(Socket workerSocket)
         {
-            Thread interactionThread = new Thread(new ParameterizedThreadStart(RecvProc));
+            Thread interactionThread = new Thread(new ParameterizedThreadStart(Interact));
             interactionThread.Start(workerSocket);
         }
 
         delegate void AddItem(Byte[] msg);
-        private void RecvProc(object workerSocket)
+        private void Interact(object workerSocket)
         {
             while(true)
             {

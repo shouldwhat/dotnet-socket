@@ -44,7 +44,30 @@ private void AcceptLoop()
 
 private void startInteractionThread(Socket workerSocket)
 {
-	Thread interactionThread = new Thread(new ParameterizedThreadStart(RecvProc));
+	Thread interactionThread = new Thread(new ParameterizedThreadStart(Interact));
 	interactionThread.Start(workerSocket);
+}
+
+private void Interact(object workerSocket)
+{
+	while(true)
+	{
+		try
+		{
+			Byte[] buffer = new Byte[1024];
+
+			//Client가 메시지를 전송할 때까지 대기
+			((Socket) workerSocket).Receive(buffer);
+
+			if (lb_msgs.InvokeRequired)
+			{
+				lb_msgs.Invoke(new AddItem(AddMsg), new object[] { buffer });
+			}
+		}
+		catch (Exception)
+		{
+			return;
+		}
+	}
 }
 ```
