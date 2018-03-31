@@ -40,7 +40,8 @@ namespace About_Sock
                         break;
                     }
 
-                    startInteraction(workerSocket);
+                    // Client로 부터 연결(connect) 요청된 경우, 상호간 통신을 담당할 쓰레드 생성
+                    startInteractionThread(workerSocket);
                 }
                 catch (Exception) {
 
@@ -48,7 +49,7 @@ namespace About_Sock
             }
         }
 
-        private void startInteraction(Socket workerSocket)
+        private void startInteractionThread(Socket workerSocket)
         {
             Thread interactionThread = new Thread(new ParameterizedThreadStart(RecvProc));
             interactionThread.Start(workerSocket);
