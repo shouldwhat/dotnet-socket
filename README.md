@@ -8,7 +8,7 @@
 ```
 ---
 
-* **개발 환경 **
+* **개발 환경**
 ```
 	*. Windows 10
 	
@@ -21,6 +21,7 @@
 
 * **샘플 예제**
 ```
+/* 클라이언트 연결 대기 */
 private void AcceptLoop()
 {
 	while (true)
@@ -42,12 +43,14 @@ private void AcceptLoop()
 	}
 }
 
+/* 클라이언트와 세션이 형성된 후, 통신을 담당할 쓰레드 실행 */
 private void startInteractionThread(Socket workerSocket)
 {
 	Thread interactionThread = new Thread(new ParameterizedThreadStart(Interact));
 	interactionThread.Start(workerSocket);
 }
 
+/* 서버-클라이언트 간 상호 작용 */
 private void Interact(object workerSocket)
 {
 	while(true)
