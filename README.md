@@ -19,7 +19,7 @@
 	*. Windows Socket
 ```
 
-* **샘플 예제**
+* **샘플 예제(Server)**
 ```
 /* 클라이언트 연결 대기 */
 private void AcceptLoop()
